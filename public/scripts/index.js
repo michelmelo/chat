@@ -75,7 +75,7 @@ socket.onopen = function(e) {
   socket.send(JSON.stringify({
     "type": "auth",
     "content": {
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkiLCJpYXQiOjE1ODc1NTk5NzAsImV4cCI6MTU4NzczMjc3MCwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZXIuOTNhYjRhMzItMWMwOC00Yjc2LWE5YWEtZmNjN2NlYzc1Y2NlIiwiZGV2aWNlaWQiOiJ1c2VyZGV2aWNlLmRhMWEzMGRjLWYwNDAtNDUxOS1hYmY2LTA4YThhNTBkOGJkNiJ9.hwrJ8nG6gxoYJbC4hP-6gvhxtNzj3q6ZCMYif9g101Y"
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkiLCJpYXQiOjE1ODc1NjEwOTEsImV4cCI6MTU4NzczMzg5MSwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZXIuZTQwNzhlNGMtMGExMC00ZjZhLWIxYzUtYTJkZDdlOWM0OTNmIiwiZGV2aWNlaWQiOiJ1c2VyZGV2aWNlLmIwMWRjNTg5LWU5MWUtNDYzMC1iZTRmLWQ5YmI3NDIxMDNjOSJ9.ciwU_G2t6wjL8PQe2_N9rTbBAQH-F9Pju5rFDdQSRlA"
     }
   }));
   console.log("[message] Data received from server:" + JSON.stringify(e));
