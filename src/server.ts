@@ -41,6 +41,10 @@ export class Server {
       const existingSocket = this.activeSockets.find(
         existingSocket => existingSocket === socket.id
       );
+       socket.send('hi');
+       socket.on('message', (msg) => {
+      // my msg
+    });
 
       if (!existingSocket) {
         this.activeSockets.push(socket.id);
