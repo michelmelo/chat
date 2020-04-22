@@ -8,7 +8,13 @@ const {
   RTCSessionDescription
 } = window;
 
-const peerConnection = new RTCPeerConnection();
+const peerConnection = new RTCPeerConnection({
+  "iceServers": [{
+    url: 'stun:stun.l.google.com:19302'
+  }, {
+    url: 'stun:stunserver.org'
+  }, ]
+});
 
 function unselectUsersFromList() {
   const alreadySelectedUser = document.querySelectorAll(
@@ -18,10 +24,13 @@ function unselectUsersFromList() {
   alreadySelectedUser.forEach(el => {
     el.setAttribute("class", "active-user");
   });
+  console.log("unselectUsersFromList");
 }
 
 function createUserItemContainer(socketId) {
   const userContainerEl = document.createElement("div");
+  console.log("createUserItemContainer");
+  console.log(socketId);
 
   const usernameEl = document.createElement("p");
 
@@ -51,11 +60,14 @@ async function callUser(socketId) {
     offer,
     to: socketId
   });
+  console.log("callUser");
+  console.log(socketId);
 }
 
 function updateUserList(socketIds) {
   const activeUserContainer = document.getElementById("active-user-container");
-
+  console.log("updateUserList");
+  console.log(socketId);
   socketIds.forEach(socketId => {
     const alreadyExistingUser = document.getElementById(socketId);
     if (!alreadyExistingUser) {
@@ -67,6 +79,14 @@ function updateUserList(socketIds) {
 }
 
 const socket = new WebSocket('wss://api.whizapp.co/chatserver');
+offerOptions = {
+  offerToRecieveAudio: 1,
+  offerToRecieveVideo: 1
+};
+
+function error(err) {
+  console.log(err);
+}
 
 
 socket.onopen = function(e) {
@@ -88,6 +108,12 @@ socket.onmessage = function(event) {
       "chatid": "chat.4e9db159-796c-445d-9733-4bd68fa49b62"
     }
   }));
+  peerConnection.createOffer(function(offer) {
+    console.log('createOffer');
+    peerConnection.setLocalDescription(new RTCSessionDescription(offer), function() {
+      socket.send(JSON.stringify(offer));
+    }, error, offerOptions);
+  }, error);
   console.log("[message] Data received from server: " + event.data);
   console.log("[message] Data received from server:" + JSON.stringify(event));
 };
@@ -164,6 +190,8 @@ socket.onerror = function(error) {
 //   alert(`User: "Socket: ${data.socket}" rejected your call.`);
 //   unselectUsersFromList();
 // });
+
+
 
 peerConnection.ontrack = function({
   streams: [stream]
