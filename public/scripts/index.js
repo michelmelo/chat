@@ -66,7 +66,7 @@ function updateUserList(socketIds) {
   });
 }
 
-const socket = new WebSocket('ws://staging-api.whizapp.co/chatserver');
+const socket = new WebSocket('wss://api.whizapp.co/chatserver');
 
 
 socket.onopen = function(e) {
