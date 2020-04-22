@@ -88,6 +88,8 @@ function error(err) {
   console.log(err);
 }
 
+// const chatid = JSON.parse('{"content": {"chatid": "chat.4e9db159-796c-445d-9733-4bd68fa49b62"}');
+
 
 socket.onopen = function(e) {
   console.log("[open] Connection established");
@@ -110,6 +112,9 @@ socket.onmessage = function(event) {
   }));
   peerConnection.createOffer(function(offer) {
     console.log('createOffer');
+    console.log(offer.type)
+    offer.push({a:1})
+    console.log(JSON.stringify(offer))
     peerConnection.setLocalDescription(new RTCSessionDescription(offer), function() {
       socket.send(JSON.stringify(offer));
     }, error, offerOptions);
